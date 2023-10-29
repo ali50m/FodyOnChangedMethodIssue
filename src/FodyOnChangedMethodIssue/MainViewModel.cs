@@ -9,7 +9,7 @@ internal class MainViewModel
     [OnChangedMethod(nameof(When_Input_Changed))]
     public int Input { get; set; }
 
-    public string Output { get; private set; } = string.Empty;
+    public string Output { get; private set; } = "0";
 
     private void When_Input_Changed()
     {
