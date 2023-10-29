@@ -1,23 +1,22 @@
 using System;
-using PropertyChanged;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace FodyOnChangedMethodIssue;
 
-[AddINotifyPropertyChangedInterface]
-internal class MainViewModel
+internal partial class MainViewModel : ObservableObject
 {
-    [OnChangedMethod(nameof(When_Input_Changed))]
-    public int Input { get; set; }
+    [ObservableProperty]
+    private int _input;
 
-    public string Output { get; private set; } = "0";
+    [ObservableProperty]
+    private string _output = "0";
 
-    private void When_Input_Changed()
+    partial void OnInputChanged(int value)
     {
         if (Random.Shared.Next(10) > 5)
         {
             throw new InvalidOperationException();
         }
-
-        Output = $"{Input}";
+        Output = $"{value}";
     }
 }
